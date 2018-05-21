@@ -29,6 +29,19 @@ $(document).ready(function() {
         };
       }
 
+      // search users
+      let users = $('#employees .profile h3');
+      $(".search-box").keyup(function() {
+        const $input = $(this).val().toLowerCase();
+        $.each(users, function(index, user) {
+          if (user.innerHTML.toLowerCase().includes($input)) {
+            $(this).closest('.profile').show();
+          } else {
+            $(this).closest('.profile').hide();
+          }
+        });
+      });
+
       function buildModal(target, index) {
         let birthday = new Date(Date.parse(target.dob.replace(/-/g, "/"))).toLocaleDateString(navigator.language);
         let fullName = `${target.name.first} ${target.name.last}`;
@@ -71,19 +84,6 @@ $(document).ready(function() {
               } else {
                 $("#next").remove('disabled');
               }
-
-              // search users
-              let users = $('#employees .profile h3');
-              $(".search-box").keyup(function() {
-                const $input = $(this).val().toLowerCase();
-                $.each(users, function(index, user) {
-                  if (user.innerHTML.toLowerCase().includes($input)) {
-                    $(this).closest('.profile').show();
-                  } else {
-                    $(this).closest('.profile').hide();
-                  }
-                });
-              });
         }
     } // success
   }); // end ajax
